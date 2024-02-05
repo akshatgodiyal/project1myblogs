@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOME</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body style="background: radial-gradient(circle, rgba(174,238,236,1) 0%, rgba(75,105,167,1) 39%, rgba(32,74,84,1) 75%, rgba(0,0,0,1) 100%);">
+    <style>
+
+    .card {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+    }</style>
+
+    {% include  'myblogs/navbar.html' %}
+    
+    <!-- carousel section begins here-->
+    <div id="carouselExampleCaptions" class="carousel slide "data-bs-ride="carousel" style="margin-left: 40px;margin-right: 40px;margin-top: 30px;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);border-radius: 20px;">
+        <style>
+            .carousel-item img {
+               
+                @media only screen and (min-width: 992px) { object-fit:cover;
+                height: 673px;
+                 }
+                @media only screen and (max-width: 600px){
+                    object-fit: cover;
+                    height: 250px;
+                  }
+                /* Set a fixed height for all images */
+            }
+
+            .blogImage:hover{
+                transform:scale(1.1)
+            }
+        </style>
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner"style="object-fit:fill">
+            <div class="carousel-item active">
+                <img src="https://images.unsplash.com/photo-1522199755839-a2bacb67c546?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100" alt="..." style="border-radius: 20px;">
+                <div class="carousel-caption d-none d-md-block" style="background-color: black;opacity: 70%;">
+                    <h5>
+                    <p>“Your first blog posts won’t be perfect, but you just have to do it. You have to start somewhere.” </p></h5>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1485988412941-77a35537dae4?q=80&w=1796&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100" style="border-radius: 20px;">
+                <div class="carousel-caption d-none d-md-block"style="background-color: black;opacity: 70%;">
+                    <h5><p>“Think in small, incremental steps that build momentum. If you start now, in two or three years from now, you might be in a really great place.”</p></h5>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://images.unsplash.com/photo-1526566762798-8fac9c07aa98?q=80&w=2004&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100" alt="..."style="border-radius: 20px;">
+                <div class="carousel-caption d-none d-md-block"style="background-color: black;opacity: 70%;">
+                    <h5><p>“One of the best ways to sabotage content is to not tie it to your goals. Know why you’re creating content.” </p></h5>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    
+    <!-- carousel section ends here -->
+
+
+    <!--Blog category starts here-->
+    <div class="container text-center mb-4">
+        <h1 class="display-4 mt-4 mb-4"  style="color: rgb(255, 255, 255);font-family: Arial, Helvetica, sans-serif; font-weight: 700;">Blog Categories</h1>
+        {{ warning }}
+        {% if category %}
+        <div class="d-flex flex-wrap justify-content-evenly">
+            {% for y in category  %}
+            <div class="card mb-2 " style="width: 22rem;background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5)">
+             <img src="{{ y.blogcat_img.url }}" class="card-img-top " alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">{{ y.blog_cat }}</h5>
+                  <p class="card-text">{{ y.blogcat_description }}</p>
+                  <a href="{% url 'blog' %}?category={{ y.blog_cat }}" class="btn btn-primary" style="background-color: #0066cc; border: none;">Click to view more</a>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+   
+    <!--Blog category ends here-->
+    <!--subscribe to follow section starts here-->
+    <div class="container mt-3 alert alert-dark" style="height: max-content; width:max-content;">
+        <h5 style="background-color: rgb(241, 221, 221); display: inline-block; font-size: 25px; color: black;">Subscribe to Follow</h5>
+        <form method="post" action='' style="opacity: 100%;">
+            {% csrf_token %}
+            <div class="form-floating mb-3">
+                <label for="exampleInputEmail2" class="form-label"></label>
+                <input type="email" class="form-control" id="s_email" name="s_email" maxlength="200" required aria-describedby="emailHelp" placeholder="name@example.com" unique="true">
+                <label for="s_email">Email address</label>
+                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck2">
+            <label class="form-check-label" for="exampleCheck2">Check me out</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        {% if feedback %}
+        <h5 class="alert alert-info mt-1">{{ feedback }}</h5>
+        {% endif %}
+      </div>
+         <!--subscribe to follow section ends here-->
+         {% include  'myblogs/footer.html' %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/65b0b3e58d261e1b5f573003/1hkt3teg1';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
+</body>
+</html>

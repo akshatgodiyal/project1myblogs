@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLOG DETAILS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        body{
+            background-color: #DCF2F1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-2 image">
+        <!-- <img src="{{ obj.cover_img.url }}" class="card-img-top" alt="..."> -->
+        <b><h1 class="text-center">{{ obj.blog_name }}</h1></b>
+        {{ obj.blog_description|safe}}
+    </div>
+    
+    <div class="container text-center " >
+        <a href="{% url 'add_like' obj.id %}" id="add_like" class="btn btn-primary " >Like this post</a>
+        <span class="container text-center">
+        <h3>LIKES: {{obj.like_count}}</h3>
+        <h3>Total Views: {{obj.view_count}}</h3>
+        </span>
+    </div>
+    <div>
+        <form class="container" method="post" action="{% url 'comments' obj.id %}">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Enter your comment</label>
+              <input type="text" name="comment1" class="form-control" id="comment1">
+            </div>
+            <button class="btn btn-primary " >SUBMIT</button>
+          </form>
+    </div>
+    <div style="background-color: black; padding-top: 2px; padding-bottom: 2px; margin-left: 20%; margin-right: 20%;"> <h2>comments</h2></div>
+    <br>
+    <br>
+    {% for comment in comments %}
+    
+    <div class="container text-center" style=" padding-bottom: 20px; padding-right: 40%;">
+        <h4>{{ comment.u_comment }}</h4>
+    </div>
+    {% endfor %}
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
